@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 //@EnableJpaRepositories("htwberlin.todolist.Repository")
 //@EntityScan("htwberlin.todolist.model")
-
 @SpringBootApplication
 public class TodolistApplication {
 

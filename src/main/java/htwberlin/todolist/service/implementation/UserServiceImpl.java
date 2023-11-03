@@ -5,4 +5,3 @@ import org.springframework.stereotype.Service;
 @Service(value="UserService")
 public class UserServiceImpl {
 }
-
