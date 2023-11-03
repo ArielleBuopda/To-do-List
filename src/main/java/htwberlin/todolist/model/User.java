@@ -2,6 +2,7 @@ package htwberlin.todolist.model;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "user_todo")
 public class User {

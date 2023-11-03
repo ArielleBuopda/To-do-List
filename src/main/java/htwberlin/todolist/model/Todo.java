@@ -82,6 +82,7 @@ public class Todo {
         return status == todo.status && Objects.equals(idtodo, todo.idtodo) && Objects.equals(task, todo.task) && Objects.equals(description, todo.description) && Objects.equals(date_todo, todo.date_todo) && Objects.equals(user, todo.user);
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(idtodo, task, description, date_todo, status, user);
