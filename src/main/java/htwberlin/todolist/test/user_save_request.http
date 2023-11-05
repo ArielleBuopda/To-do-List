@@ -1,0 +1,15 @@
+###
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "surname": "Abec",
+  "name": "Dongmo",
+  "email": "abec.dongmo@gmail.com",
+  "password": "test123",
+  "token": "sd85s7ds87d78sd98sd798sd78sd87656dsa"
+}
+
+###
+
+GET http://localhost:8080/users/4

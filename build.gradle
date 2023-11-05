@@ -23,6 +23,7 @@ dependencies {
 	implementation 'javax.persistence:javax.persistence-api:2.2'
 	implementation 'com.oracle.database.jdbc:ojdbc10:19.20.0.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	runtimeOnly 'com.h2database:h2:2.2.224'
 }
 
 tasks.named('test') {
