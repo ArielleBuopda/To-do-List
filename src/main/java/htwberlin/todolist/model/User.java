@@ -14,10 +14,11 @@ public class User {
     private String surname;
 
     private String name;
-
+    @Column(name = "email", unique = true)
     private String email;
 
     private String password;
+    private String role ="U";
 
     private String token;
 
@@ -61,6 +62,14 @@ public class User {
         this.password = password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public String getToken() {
         return token;
     }
@@ -74,12 +83,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(iduser, user.iduser) && Objects.equals(surname, user.surname) && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(token, user.token);
+        return Objects.equals(iduser, user.iduser) && Objects.equals(surname, user.surname) && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(password, user.password) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(iduser, surname, name, email, password, token);
+        return Objects.hash(iduser, surname, name, email, password);
     }
 
     @Override
@@ -90,7 +99,6 @@ public class User {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", token='" + token + '\'' +
                 '}';
     }
 }

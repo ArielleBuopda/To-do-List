@@ -3,8 +3,12 @@ package htwberlin.todolist.controller;
 import htwberlin.todolist.model.User;
 import htwberlin.todolist.service.UserService;
 import htwberlin.todolist.service.implementation.UserServiceImpl;
+import htwberlin.todolist.utils.Utilitaries;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -13,8 +17,10 @@ public class UserController {
     UserServiceImpl userService;
 
     @PostMapping("/users")
-    public User createUser(@RequestBody User user){
-        return userService.save(user);
+    public List<User> createUser(@RequestBody User user){
+        user.setPassword(new Utilitaries().convertSHA512(user.getPassword()));
+        userService.save(user);
+        return userService.getAll();
     }
 
     @GetMapping("/users/{id}")
@@ -24,6 +30,10 @@ public class UserController {
         return user;
     }
 
+    @GetMapping( "/users")
+    public List<User> getUsers(){
+        return userService.getAll();
+    }
 
 
 }

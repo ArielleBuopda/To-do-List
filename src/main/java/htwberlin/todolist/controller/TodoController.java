@@ -7,22 +7,68 @@ import htwberlin.todolist.service.implementation.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class TodoController {
 
 
     @Autowired
     TodoServiceImpl todoService;
+    @Autowired
+    UserServiceImpl userService;
 
-    @PostMapping("/todos")
-    public Todo createTodo(@RequestBody Todo todo){
-        return todoService.save(todo);
+    @PostMapping("/todo")
+    public String createTodo(@RequestHeader(value = "Authorization") String token, @RequestBody Todo todo){
+        if(token == null || token.isEmpty()){
+            return "Fail";
+        }else{
+            User user = userService.findByToken(token);
+            if (user == null){
+                return "Fail";
+            }else{
+                todo.setUser(user);
+                todoService.save(todo);
+                return "Success";
+            }
+        }
     }
 
-    @GetMapping("/todos/{id}")
-    public Todo getTodo(@PathVariable String id){
-        Long userId = Long.parseLong(id);
-        return todoService.get(userId);
+    @GetMapping("/todo/{id}")
+    public Todo getTodo(@RequestHeader(value = "Authorization") String token,@PathVariable String id){
+        Long todoId = Long.parseLong(id);
+        return todoService.get(todoId);
+    }
+    @GetMapping("/todos")
+    public List<Todo> getTodoAll(@RequestHeader(value = "Authorization") String token){
+
+        if(token == null || token.isEmpty()){
+            return new ArrayList<>();
+        }else{
+            User user = userService.findByToken(token);
+            if (user == null){
+                return new ArrayList<>();
+            }else{
+                return todoService.getAllByToken(token);
+            }
+        }
+    }
+
+    @PostMapping("/todo/delete")
+    public List<Todo> delete(@RequestHeader(value = "Authorization") String token, @RequestBody Todo todo){
+
+        if(token == null || token.isEmpty()){
+            return new ArrayList<>();
+        }else{
+            User user = userService.findByToken(token);
+            if (user == null){
+                return new ArrayList<>();
+            }else{
+                todoService.deleteToDo(todo);
+                return todoService.getAllByToken(token)!=null?todoService.getAllByToken(token): new ArrayList<>();
+            }
+        }
     }
 
 
